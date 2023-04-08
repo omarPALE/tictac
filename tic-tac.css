@@ -1,0 +1,109 @@
+#game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.row {
+    display: flex;
+}
+
+.square {
+    width: 100px;
+    height: 100px;
+    background-color: #6363e1;
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    cursor: pointer;
+}
+#winner{
+    position: absolute;
+    top: 140px;
+    left: 650px;
+}
+.reset{
+     position: absolute;
+     top: 580px;
+     left: 720px;
+     border: none;
+     border-radius: 5px;
+     padding: 10px 20px;
+     font-size: 16px;
+     color: #fff;
+     background: linear-gradient(to right, #4b6cb7, #182848);
+     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+     transition: all 0.3s ease-in-out;
+ }
+.reset {
+    border: 3px solid #fff;
+    transform: translateY(-3px);
+}
+.twoPlayer{
+    position: static;
+    top: 280px;
+    left: 420px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background: linear-gradient(to right, #4b6cb7, #182848);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+}
+.twoPlayer {
+    border: 3px solid #fff;
+    transform: translateY(-3px);
+}
+
+.ai{
+    position: static;
+    top: 380px;
+    left: 420px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background: linear-gradient(to right, #4b6cb7, #182848);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+}
+.ai {
+    border: 3px solid #fff;
+    transform: translateY(-3px);
+}
+.square:hover {
+    background-color: #e6e6e6;
+}
+#winner {
+    font-size: 60px;
+    font-family: 'Arial', sans-serif;
+    color: #3886ea;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    animation: neon 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neon {
+    from {
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.3),
+        0 0 10px rgba(255, 255, 255, 0.3),
+        0 0 15px rgba(255, 255, 255, 0.3);
+    }
+    to {
+        text-shadow: 0 0 10px rgba(173, 26, 231, 0.7),
+        0 0 20px rgba(209, 49, 225, 0.7),
+        0 0 30px rgba(80, 176, 47, 0.5);
+    }
+}
+
+
+
+
+
+
