@@ -41,7 +41,7 @@ function player(human, value,win) {
     this.win = false;
 }
 
-let playerr = new player(true, 'X');
+let playerr = new player(true);
 
 twoplayer.addEventListener("click", function() {
     winner.textContent = `Two Player's`;
@@ -71,11 +71,11 @@ easy.addEventListener("click", function() {
 });
 
 function easyLevel(event) {
-    if(!playerr.win) {
+    if(!playerr.win && event.target.innerHTML!== "O") {
         playerr.value = 'X';
         const square1 = event.target;
+
         square1.innerHTML = playerr.value;
-        // console.log(square1.innerHTML);
         square1.style.color = playerr.value === 'O' ? '#1abc9c' : '#2c3e50';
         checkWin();
         easyLevelNextTurn();
@@ -93,7 +93,7 @@ function easyLevelNextTurn() {
     }
     let move = random(available);
     const randomdiv = document.getElementById(move);
-    if(randomdiv.innerHTML === "" && playerr.win !==true) {
+    if(randomdiv.innerHTML === "" && playerr.win !==true && randomdiv.innerHTML!=='X') {
         randomdiv.innerHTML = "O";
         checkWin();
         fullBoard(available);
@@ -179,7 +179,6 @@ function checkWin() {
             playerr.win= true;
             return true;
         }
-
     }
     return false;
 }
@@ -198,6 +197,4 @@ function restart() {
 
 function random(available) {
     return  Math.floor(Math.random() * available.length);
-
-
 }
