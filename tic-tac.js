@@ -149,7 +149,7 @@ function nextTurn() {
     //     }
     // }
     let move = random(available);
-        const randomdiv = document.getElementById('move');
+        const randomdiv = document.getElementById(move);
             randomdiv.innerHTML = "O";
             playerr.value = 'O'
             playerr.human = false;
@@ -197,7 +197,7 @@ function restart() {
 }
 
 function random(available) {
-    let randomIndex = Math.floor(Math.random() * available.length);
-    return randomIndex;
-    return undefined;
+    return  Math.floor(Math.random() * available.length);
+
+
 }
