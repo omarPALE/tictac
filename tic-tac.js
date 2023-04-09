@@ -7,9 +7,6 @@ const rows = document.querySelectorAll('.row');
 console.log(rows);
 let board =  [[],[],[]];
 
-for(let i=0 ; i< squares.length; i++){
-    console.log("hiiiiiiiiiiiiiiii"+squares[i].innerHTML);
-}
 
 function fullBoard(){
     for (let i = 0; i < 9; i++) {
@@ -33,8 +30,6 @@ function fullBoard(){
 //     board[2][id-6] = document.getElementById(id).innerHTML ;
 // }
 }
-
-fullBoard();
 for(let i = 0 ; i<3;i++){
     for(let j = 0 ; j<3;j++){
         console.log(board[i][j]);
@@ -66,27 +61,26 @@ function handleClick(event) {
     }
 }
 
-function easyLevel(event) {
-    if(!playerr.win) {
-        playerr.value = 'X';
-        const square1 = event.target;
-        square1.innerHTML = playerr.value;
-        console.log(square1.innerHTML);
-        square1.style.color = playerr.value === 'O' ? '#1abc9c' : '#2c3e50';
-        checkWin();
-        easyLevelNextTurn();
-    }
-
-}
 
 easy.addEventListener("click", function() {
     winner.textContent = `Easy Level`;
     squares.forEach((square) => {
         square.addEventListener('click', easyLevel, {once: true});
     });
-    console.log("AI clicked!");
+    console.log("Easy Level");
 });
 
+function easyLevel(event) {
+    if(!playerr.win) {
+        playerr.value = 'X';
+        const square1 = event.target;
+        square1.innerHTML = playerr.value;
+        // console.log(square1.innerHTML);
+        square1.style.color = playerr.value === 'O' ? '#1abc9c' : '#2c3e50';
+        checkWin();
+        easyLevelNextTurn();
+    }
+}
 
 function easyLevelNextTurn() {
     playerr.value = 'O';
@@ -94,44 +88,19 @@ function easyLevelNextTurn() {
     for(let i = 0; i<squares.length ;i++){
         const content = squares[i].innerHTML;
         if(content === ''){
-            squares[i]= playerr.value;
-            content.innerHTML = "O";
+            available[i]=squares[i].id;
         }
     }
-    // for(let g = 0; g = available.length; g++){
-    //     fullBoard(available[g]);
-    // }
-    // for(let i = 0 ; i<3;i++){
-    //     for(let j = 0 ; j<3;j++){
-    //         console.log(board[i][j]);
-    //     }
-    // }
     let move = random(available);
-    const randomdiv = document.getElementById("move");
-    randomdiv.innerHTML = "O";
-    // playerr.value = 'O'
-    // playerr.human = false;
-    checkWin();
+    const randomdiv = document.getElementById(move);
+    if(randomdiv.innerHTML === "" && playerr.win !==true) {
+        randomdiv.innerHTML = "O";
+        checkWin();
+        fullBoard(available);
+    }
+    else
+        easyLevelNextTurn();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ai.addEventListener("click", function() {
@@ -154,7 +123,6 @@ function handleClick2(event) {
     }
     //playerr.value = playerr.value === 'O' ? 'X' : 'O';
 }
-
 
 function nextTurn() {
     playerr.value = 'O';
@@ -188,11 +156,8 @@ function nextTurn() {
             checkWin()
    }
 
-function random(available) {
-    let randomIndex = Math.floor(Math.random() * available.length);
-    return randomIndex;
-    return undefined;
-}
+
+
 
 function checkWin() {
     const rows = [
@@ -229,4 +194,10 @@ function restart() {
     });
     playerr.value = 'X';
 
+}
+
+function random(available) {
+    let randomIndex = Math.floor(Math.random() * available.length);
+    return randomIndex;
+    return undefined;
 }

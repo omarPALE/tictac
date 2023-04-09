@@ -24,11 +24,16 @@
 #winner{
     position: absolute;
     top: 140px;
-    left: 650px;
+    left: 750px;
+    font-size: 60px;
+    font-family: 'Arial', sans-serif;
+    color: #3886ea;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    animation: neon 1.5s ease-in-out infinite alternate;
 }
 .reset{
      position: absolute;
-     top: 580px;
+     top: 620px;
      left: 720px;
      border: none;
      border-radius: 5px;
@@ -97,13 +102,6 @@
 }
 .square:hover {
     background-color: #e6e6e6;
-}
-#winner {
-    font-size: 60px;
-    font-family: 'Arial', sans-serif;
-    color: #3886ea;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-    animation: neon 1.5s ease-in-out infinite alternate;
 }
 
 @keyframes neon {
