@@ -44,9 +44,9 @@
     transform: translateY(-3px);
 }
 .twoPlayer{
-    position: static;
-    top: 280px;
-    left: 420px;
+    position: absolute;
+    top: 320px;
+    left: 380px;
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
@@ -62,9 +62,9 @@
 }
 
 .ai{
-    position: static;
-    top: 380px;
-    left: 420px;
+    position: absolute;
+    top: 210px;
+    left: 380px;
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
@@ -75,6 +75,23 @@
     transition: all 0.3s ease-in-out;
 }
 .ai {
+    border: 3px solid #fff;
+    transform: translateY(-3px);
+}
+.easy{
+    position: absolute;
+    top: 410px;
+    left: 380px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background: linear-gradient(to right, #4b6cb7, #182848);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+}
+.easy {
     border: 3px solid #fff;
     transform: translateY(-3px);
 }
