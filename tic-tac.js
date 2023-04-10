@@ -20,6 +20,7 @@ function fullBoard(){
     }
 
 
+
 // if(id <=2){
 //         board[0][id] = document.getElementById(id).innerHTML ;
 // }
@@ -30,11 +31,8 @@ function fullBoard(){
 //     board[2][id-6] = document.getElementById(id).innerHTML ;
 // }
 }
-for(let i = 0 ; i<3;i++){
-    for(let j = 0 ; j<3;j++){
-        console.log(board[i][j]);
-    }
-}
+
+
 function player(human, value,win) {
     this.human = true;
     this.value = 'X';
@@ -52,12 +50,19 @@ twoplayer.addEventListener("click", function() {
 });
 
 function handleClick(event) {
+    console.log("hiiii");
     if (!playerr.win) {
         const square = event.target;
         square.innerHTML = playerr.value;
         square.style.color = playerr.value === 'X' ? '#1abc9c' : '#2c3e50';
         checkWin();
         playerr.value = playerr.value === 'X' ? 'O' : 'X';
+        fullBoard();
+        for(let i=0 ;i<board.length; i++) {
+            for (let j = 0; j < board.length; j++) {
+                console.log(board[i][j]);
+            }
+        }
     }
 }
 
@@ -112,7 +117,7 @@ ai.addEventListener("click", function() {
 });
 
 function handleClick2(event) {
-    if(!playerr.win) {
+    if(!playerr.win && event.target.innerHTML!== "O" ) {
         playerr.value = 'X';
         const square1 = event.target;
         square1.innerHTML = playerr.value;
@@ -140,14 +145,6 @@ function nextTurn() {
              }
         }
     }
-    // for(let g = 0; g = available.length; g++){
-    //     fullBoard(available[g]);
-    // }
-    // for(let i = 0 ; i<3;i++){
-    //     for(let j = 0 ; j<3;j++){
-    //         console.log(board[i][j]);
-    //     }
-    // }
     let move = random(available);
         const randomdiv = document.getElementById(move);
             randomdiv.innerHTML = "O";
