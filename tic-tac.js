@@ -10,6 +10,25 @@ let currentPlayer = humanPlayer;
 
 let board =  [[],[],[]];
 
+let board2 = [];
+function fullBoard2(){
+    for (let i = 0; i < squares.length; i++) {
+        board2[i] = squares[i].innerHTML;
+    }
+
+
+
+// if(id <=2){
+//         board[0][id] = document.getElementById(id).innerHTML ;
+// }
+// else if (id > 2 && id <= 5) {
+//     board[1][id-3] = document.getElementById(id).innerHTML ;
+// }
+// else{
+//     board[2][id-6] = document.getElementById(id).innerHTML ;
+// }
+}
+
 
 function fullBoard(){
     for (let i = 0; i < 9; i++) {
@@ -45,6 +64,7 @@ function player(human, value,win) {
 let playerr = new player(true);
 
 twoplayer.addEventListener("click", function() {
+    fullBoard();
     winner.textContent = `Two Player's`;
     squares.forEach((square) => {
         square.addEventListener('click', handleClick,{ once: true});
@@ -53,20 +73,18 @@ twoplayer.addEventListener("click", function() {
 });
 
 function handleClick(event) {
-    fullBoard();
-    console.log("hiiii");
     if (!playerr.win) {
         const square = event.target;
         square.innerHTML = playerr.value;
         square.style.color = playerr.value === 'X' ? '#1abc9c' : '#2c3e50';
-        checkWin();
+        fullBoard2();
+        if(checkWin4(board2,playerr.value)){
+            winner.textContent = `${playerr.value} wins!`;
+            playerr.win= true;
+            console.log("hi winer");
+        }
         playerr.value = playerr.value === 'X' ? 'O' : 'X';
-        // fullBoard();
-        // for(let i=0 ;i<board.length; i++) {
-        //     for (let j = 0; j < board.length; j++) {
-        //         console.log(board[i][j]);
-        //     }
-        // }
+        fullBoard2();
     }
 }
 
@@ -121,42 +139,56 @@ ai.addEventListener("click", function() {
 });
 
 function handleClick2(event) {
-    if(!playerr.win && event.target.innerHTML!== "O" ) {
+    if(!playerr.win && playerr.value !=="O") {
+        fullBoard();
         playerr.value = 'X';
         const square1 = event.target;
-        square1.innerHTML = playerr.value;
-        console.log(square1.innerHTML);
+       square1.innerHTML = playerr.value;
+        // console.log(square1.innerHTML);
         square1.style.color = playerr.value === 'O' ? '#1abc9c' : '#2c3e50';
-        fullBoard();
-        checkWin();
         nextTurn(board);
     }
-    //playerr.value = playerr.value === 'O' ? 'X' : 'O';
 }
 
 function nextTurn(board) {
-    // fullBoard();
-    console.log("in next turn");
+    console.log("HI");
+    fullBoard();
+    // console.log("in next turn");
     let bestScore = -Infinity;
     let bestMove;
+    console.log("the board in nextturn :");
+
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
-          console.log("after for ");
 
           if (board[i][j] === '') {
-          board[i][j] = aiPlayer;
+              // console.log("in after if");
+              board[i][j] = aiPlayer;
           const score = minimax(board, 0, false, -Infinity, Infinity);
-          board[i][j] = '';
-          console.log("Before if ");
+              // console.log("Score" + score );
+
+              board[i][j] = '';
+          // console.log("Before if ");
           if (score > bestScore) {
             bestScore = score;
             bestMove = { i , j };
             console.log("best move =  i is :" + i + "j is :"+ j);
-          }
+            if(board[i][j] === ""){
+            squares[i+j]= aiPlayer;
+              squares[i+j].innerHTML= aiPlayer;
+                // board[i][j]=aiPlayer;
+                checkWin();
+
+            }
+            }
         }
+          console.log(board[i][j]);
+
       }
     }
+
     board[bestMove.i][bestMove.j] = aiPlayer;
+
     let currentPlayer = humanPlayer;
     }
 
@@ -170,8 +202,6 @@ function nextTurn(board) {
    //          playerr.human = false;
    //          checkWin();
    // }
-
-
 
 
 function checkWin() {
@@ -214,55 +244,43 @@ function random(available) {
     return  Math.floor(Math.random() * available.length);
 }
 
-function evaluate(player) {
-  if (checkWin() && player.value ===aiPlayer) {
+function otherPlayer(player) {
+    if (player.value ='X')
+        return "O"
+    else
+        return "x";
+}
+
+function evaluate(board,player) {
+  if (checkWin4(board,player)) {
     return 1;
   }
-  if (checkWin() && player.value === humanPlayer) {
+  else if (checkWin4(board,otherPlayer(player))) {
     return -1;
   }
+  else
   return 0;
 }
 
-function checkWin2(board , player) {
-    for (let i = 0; i < 3; i++) {
-    if (board[i][0] === player && board[i][1] === player && board[i][2] === player) {
-        // winner.textContent = `${playerr.value} wins!`;
-        // playerr.win= true;
-        return true;
-    }
-    if (board[0][i] === player && board[1][i] === player && board[2][i] === player) {
-        // winner.textContent = `${playerr.value} wins!`;
-        // playerr.win= true;
-        return true;
-    }
-  }
-  if (board[0][0] === player && board[1][1] === player && board[2][2] === player) {
-      // winner.textContent = `${playerr.value} wins!`;
-      // playerr.win= true;
-      return true;
-  }
-  if (board[0][2] === player && board[1][1] === player && board[2][0] === player) {
-      // winner.textContent = `${playerr.value} wins!`;
-      // playerr.win= true;
-      return true;
-  }
-  return false;
-}
 
 function isBoardFull(board) {
 fullBoard();
 for (let i= 0 ; i<3;i++){
     for(let j = 0 ; j <3 ; j++){
-        if(board[i][j] === '')
-            return false ;
+        if(board[i][j] === ''){
+            console.log("in isBoardFull" + board[i][j]);
+            return false ;}
     }
 }
 return true;
 }
 
 function minimax(board, depth, isMaximizingPlayer, alpha, beta) {
-  const score = evaluate(playerr);
+
+    console.log("the board in minimax :");
+    console.log( board);
+
+    const score = evaluate(playerr);
   if (score !== 0 || isBoardFull(board)) {
     return score;
   }
@@ -294,7 +312,8 @@ function minimax(board, depth, isMaximizingPlayer, alpha, beta) {
           bestScore = Math.min(bestScore, currentScore);
           beta = Math.min(beta, bestScore);
           if (beta <= alpha) {
-            break;
+              console.log("O turned off");
+              break;
           }
         }
       }
@@ -302,3 +321,16 @@ function minimax(board, depth, isMaximizingPlayer, alpha, beta) {
     return bestScore;
   }
 }
+
+
+function checkWin4(board, player) {
+    const rows = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],  // Rows
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],  // Columns
+        [0, 4, 8], [2, 4, 6]              // Diagonals
+    ];
+
+    return rows.some(row => row.every(cell => board[cell] === player));
+}
+
+
